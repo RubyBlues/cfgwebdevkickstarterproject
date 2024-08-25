@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Puzzled</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unica+One&display=swap" rel="stylesheet">
+</head>
+  <body>
+    <!-- NAV BAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/puzzlepiece.png" alt="Logo">
+          Puzzled
+      </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gchq.html">GCHQ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="eastereggs.html">Easter Eggs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="puzzler.html">Puzzler</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="captainslog.html">Captain's Log</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Setting up of Container & Left Hand Column of Grid -->
+    <div class="container mt-5">
+      <h1 class="welcomeTitle display-4">Why, hello there!</h1>
+      <div class="row">
+        <div class="col-sm-6 p-3 text-center">
+          <div class="p-4 mx-auto leftRightColIntro">
+            <p>Welcome to Puzzled, our little corner of the not-quite internet where you need to find answers or flags to solve a series of puzzles.</p>
+            <p>Hidden on each page of the website is part of the final answer. Piece together the clues and then come back to this home page to try your luck in the box below.<br>Have fun!</p>
+            
+            <!-- Button to show Game Rules -->
+            <button id="showGameRules" type="button" class="btn btn-primary mb-3" data-bs-toggle="collapse" data-bs-target="#gameRules">SHOW GAME RULES:</button>
+          
+            <div id="gameRules" class="collapse">
+              <table class="table table-striped">
+                <tr>
+                  <td>1.</td>
+                  <td>On each page there will be a clue, find the answer and note it down. Carry on to the next page until you have found all the clues.</td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td>Take the first letter of each answer. This is an anagram. Solve the anagram and come back to this home page.</td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td>Enter your answer in the box below to see if you’ve successfully solved it.</td>
+                </tr>
+                <tr class="yellowPop">
+                  <td></td>
+                  <td>NB: Where the flag is something you need to find (as opposed to work out), it will be indicated as FLAG:XXX</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        <!-- Get Started Button -->
+        <button class="getStartedButton mt-auto" onclick="showClue1()">Get Started!</button>
+      </div>
+
+      <!-- Right Hand Column of Grid -->
+        <div class="col-sm-6 p-3 text-center">
+          <div class="p-4 mx-auto leftRightColIntro">
+            <img id="magnifyingGlass" src="images/magnifyingGlass.png" class="img-fluid" alt="Magnifying Glass">
+            
+            <div id="clue1Text">
+              <div class=" rounded p-3 yellowPop">
+                <p class="clueNumber fs-2">Clue number 1:</p>
+                <p>What is the letter, represented by (*) in this sequence?</p>
+                <p class="clueNumber fs-3"><b>(*) TT FF SS EN T</b></p>
+                <p>Once you've solved this, head to the GCHQ page for your next clue...</p>
+                <a href="#" id="hint1Link" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="It's a numbers game...">Show me a hint!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Solution Box-->
+    <div class="container-fluid bg-light py-5" id="solutionBoxContainer">
+      <div class="container text-center border rounded mb-3 pt-3 shadow" id="solutionBoxContainerInner">
+        <h2 id="solutionBox" class="mb-3">Think you've cracked it?</h2>
+        <p>When you've solved the puzzles, come back here and enter your answer in the box to see if you've found the solution.<br><i>NB: answer is not case sensitive.</i></p>
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <input id="userAnswer" type="text" class="form-control mb-3 yellowPopMute" placeholder="Enter your answer here">
+            <button onclick="checkAnswer()" class="btn btn-primary">Submit</button>
+            <p id="resultMessage" class="mt-3"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Congratulations Modal -->
+    <div class="modal fade" id="congratulationsModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header yellowPopMute">
+            <h5 class="modal-title welcomeTitle" id="congratulationsModalLabel">Congratulations!</h5>
+          </div>
+          <div class="modal-body text-center">
+            <p>🎉You solved the puzzle🎉</p>
+            <p>We knew you could do it!</p>
+            <p class="fs-2">😉</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="triggerBlackout()">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blackout Screen -->
+    <div id="blackoutScreen"></div>
+
+    <!-- Final Message -->
+    <div id="finalMessage">Now, how about some real work?</div>
+
+
+    <!-- FOOTER -->
+    <footer class="footer text-bg-dark">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                  <p>&copy; 2024 Not a Real Website. All rights reserved.</p>
+              </div>
+              <div class="col-md-6 text-end">
+                  <ul class="list-inline footer-links">
+                      <li class="list-inline-item">
+                          <a href="reallyImportantStuff.html">The really important stuff</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </footer>
+
+    <!-- canvas confetti link -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- bootstrap link -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
